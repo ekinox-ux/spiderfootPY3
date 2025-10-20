@@ -1,35 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Rajdhani:wght@400;600;700&display=swap');
+
 body {
-  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  padding-top: 60px;
+  font-family: 'Rajdhani', 'Segoe UI', Tahoma, sans-serif;
+  background: radial-gradient(circle at top, rgba(0, 217, 255, 0.12), transparent 45%),
+    linear-gradient(135deg, #020611 0%, #061425 40%, #03111d 100%);
+  color: #d7f6ff;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(0, 217, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.08) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.3;
+  animation: grid-float 12s linear infinite;
+  z-index: -1;
+}
+
+@keyframes grid-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-60px, -30px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.navbar-default {
+  background: rgba(3, 18, 37, 0.92);
+  border: none;
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.25);
+  backdrop-filter: blur(10px);
 }
 
 .navbar-brand {
-  image-rendering: -o-crisp-edges; /* Opera */
-  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
-  image-rendering: crisp-edges;
-  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
-  margin-top: -10px;
+  font-family: 'Orbitron', 'Rajdhani', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #5be9ff !important;
+  text-shadow: 0 0 6px rgba(91, 233, 255, 0.9);
+  padding-top: 12px;
 }
 
 .brand-logo {
-  display: block;
-  float: left;
-  padding-top: 5px;
-  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  padding-right: 24px;
 }
 
-.spiderfoot-header-image {
-  height: 35px;
-  padding-top: 5px;
-  image-rendering: auto;
+.brand-text {
+  position: relative;
+  padding: 6px 18px;
+  border: 1px solid rgba(91, 233, 255, 0.6);
+  border-radius: 999px;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.55), inset 0 0 12px rgba(0, 120, 180, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.brand-text:hover,
+.brand-text:focus {
+  transform: scale(1.02) translateY(-1px);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.75), inset 0 0 16px rgba(0, 120, 180, 0.55);
+  color: #aaf3ff !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #d7f6ff !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
+  color: #5be9ff !important;
+  background: transparent !important;
+  text-shadow: 0 0 10px rgba(91, 233, 255, 0.6);
+}
+
+.navbar-toggle .icon-bar {
+  background: #5be9ff;
+  box-shadow: 0 0 6px rgba(91, 233, 255, 0.6);
+}
+
+.navbar-toggle:focus,
+.navbar-toggle:hover {
+  background-color: rgba(91, 233, 255, 0.15) !important;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+  background: rgba(4, 24, 44, 0.85);
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.15);
 }
 
 table td {
   word-wrap: break-word;
+  border-color: rgba(91, 233, 255, 0.2) !important;
+  color: #e2faff;
 }
 
 table td input {
@@ -37,6 +123,10 @@ table td input {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+  background: rgba(2, 20, 37, 0.85);
+  border: 1px solid rgba(91, 233, 255, 0.3);
+  color: #aef5ff;
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.12);
 }
 
 table pre {
@@ -51,11 +141,29 @@ table pre {
 .graph-container {
   height: 650px;
   width: 100%;
+  background: rgba(5, 19, 37, 0.65);
+  border: 1px solid rgba(91, 233, 255, 0.2);
+  box-shadow: inset 0 0 20px rgba(0, 217, 255, 0.15);
+  border-radius: 12px;
+}
+
+.futuristic-panel {
+  background: rgba(3, 20, 36, 0.8) !important;
+  border: 1px solid rgba(91, 233, 255, 0.25) !important;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.18);
+  color: #d7f6ff;
+}
+
+.futuristic-panel .panel-body {
+  background: transparent !important;
+  color: inherit;
 }
 
 .table-border-bg-inherit {
   border: 0px;
   background-color: inherit;
+  color: inherit;
 }
 
 .font-size-90-percent {
@@ -97,24 +205,20 @@ a.link:hover {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #5be9ff;
   shape-rendering: crispEdges;
 }
 
 .bar {
-  fill: #79a8d0;
+  fill: rgba(91, 233, 255, 0.7);
 }
 
 .bar:hover {
-  fill: #07aef1;
+  fill: rgba(157, 252, 255, 0.9);
 }
 
 .x.axis path {
   display: none;
-}
-
-.fade.in {
-  background: #fff;
 }
 
 input[type="checkbox"] {
@@ -122,6 +226,7 @@ input[type="checkbox"] {
   height: 14px;
   margin: 0px;
   display: inline;
+  accent-color: #5be9ff;
 }
 
 .dark {
@@ -132,6 +237,8 @@ input[type="checkbox"] {
 
 #toggler-text{
   padding-left: 15px;
+  color: #d7f6ff;
+  letter-spacing: 0.08em;
 }
 .switch {
   position: relative;
@@ -139,10 +246,10 @@ input[type="checkbox"] {
   width: 42px;
   height: 21px;
   margin-top: 1.3rem;
-  
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -155,9 +262,11 @@ input[type="checkbox"] {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: rgba(91, 233, 255, 0.25);
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 31px;
+  box-shadow: inset 0 0 12px rgba(0, 217, 255, 0.3);
 }
 
 .slider:before {
@@ -170,6 +279,7 @@ input[type="checkbox"] {
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+  box-shadow: 0 0 12px rgba(91, 233, 255, 0.75);
 }
 
 input:checked + .slider {
@@ -186,16 +296,11 @@ input:checked + .slider:before {
   transform: translateX(20px);
 }
 
-.slider.round {
-  border-radius: 31px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 .footer {
   padding: 10px;
+  color: #7de8ff;
+  background: rgba(3, 18, 37, 0.88);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
 }
 
 .download-button {
