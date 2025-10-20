@@ -572,8 +572,9 @@ class SpiderFootCli(cmd.Cmd):
 
     # List all SpiderFoot modules.
     def do_modules(self, line, cacheonly=False):
-        """modules
-        List all available modules and their descriptions."""
+        """modules [filter]
+        List all available modules and their descriptions. Optionally provide
+        one or more search terms to filter the output."""
         d = self.request(self.ownopts['cli.server_baseurl'] + "/modules")
         if not d:
             return
@@ -583,6 +584,30 @@ class SpiderFootCli(cmd.Cmd):
             for m in j:
                 self.modules.append(m['name'])
             return
+
+        parsed = self.myparseline(line)
+        filters = [term.lower() for term in parsed[0] if term]
+
+        if filters:
+            try:
+                modules = json.loads(d)
+            except BaseException as e:  # pragma: no cover - defensive
+                self.edprint(f"Unable to parse module list: {e}")
+                return
+
+            filtered_modules = []
+            for module in modules:
+                name = module.get('name', '')
+                descr = module.get('descr', '')
+                haystack = f"{name}\n{descr}".lower()
+                if all(f in haystack for f in filters):
+                    filtered_modules.append(module)
+
+            if not filtered_modules:
+                self.dprint("No modules matched the provided filter.")
+                return
+
+            d = json.dumps(filtered_modules)
 
         self.send_output(d, line, titles={"name": "Module name",
                                           "descr": "Description"})
