@@ -14,23 +14,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeToggler = document.getElementById("theme-toggler");
   const head = document.getElementsByTagName("HEAD")[0];
   const togglerText = document.getElementById("toggler-text");
+  const MODE_CLAIR = "Mode Clair";
+  const MODE_SOMBRE = "Mode Sombre";
+  const DARK_THEME = "dark-theme";
   let link = document.createElement("link");
 
-  if (localStorage.getItem("mode") === "Light Mode") {
-    togglerText.innerText = "Dark Mode";
-    document.getElementById("theme-toggler").checked = true; // ensure theme toggle is set to dark
-  } else { // initial mode ist null
-    togglerText.innerText = "Light Mode";
-    document.getElementById("theme-toggler").checked = false; // ensure theme toggle is set to light
+  const theme = localStorage.getItem("theme");
+  const isDark = theme === DARK_THEME || theme === null;
+
+  if (isDark) {
+    document.getElementById("theme-toggler").checked = true;
+    togglerText.innerText = MODE_CLAIR;
+    localStorage.setItem("mode", MODE_CLAIR);
+  } else {
+    document.getElementById("theme-toggler").checked = false;
+    togglerText.innerText = MODE_SOMBRE;
+    localStorage.setItem("mode", MODE_SOMBRE);
   }
 
-
   themeToggler.addEventListener("click", () => {
-    togglerText.innerText = "Light Mode";
-
-    if (localStorage.getItem("theme") === "dark-theme") {
+    if (localStorage.getItem("theme") === DARK_THEME) {
       localStorage.removeItem("theme");
-      localStorage.setItem("mode", "Dark Mode");
+      togglerText.innerText = MODE_SOMBRE;
+      localStorage.setItem("mode", MODE_SOMBRE);
       link.rel = "stylesheet";
       link.type = "text/css";
       link.href = "${docroot}/static/css/spiderfoot.css";
@@ -38,8 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
       head.appendChild(link);
       location.reload();
     } else {
-      localStorage.setItem("theme", "dark-theme");
-      localStorage.setItem("mode", "Light Mode");
+      localStorage.setItem("theme", DARK_THEME);
+      togglerText.innerText = MODE_CLAIR;
+      localStorage.setItem("mode", MODE_CLAIR);
       link.rel = "stylesheet";
       link.type = "text/css";
       link.href = "${docroot}/static/css/dark.css";
